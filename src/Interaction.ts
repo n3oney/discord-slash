@@ -1,6 +1,7 @@
 import { ApplicationCommand } from "./ApplicationCommand.ts";
 import { ApplicationCommandInteractionData } from "./ApplicationCommandInteractionData.ts";
 import { Client } from "./Client.ts";
+import { GuildMember } from "./GuildMember.ts";
 
 export enum InteractionResponseType {
     Pong = 1,
@@ -18,10 +19,10 @@ export enum InteractionType {
 export class Interaction {
     public version = 1;
 
-    constructor(public client: Client, public command: ApplicationCommand, public id: string, public token: string, public guild: string, public channel: string, public type: InteractionType, public data?: ApplicationCommandInteractionData) { }
+    constructor(public client: Client, public command: ApplicationCommand, public id: string, public token: string, public member: GuildMember, public guild: string, public channel: string, public type: InteractionType, public data?: ApplicationCommandInteractionData) { }
 
-    async reply(content: string, responseType: InteractionResponseType = InteractionResponseType.ChannelMessageWithSource, embeds: unknown[] = [], allowedMentions?: string[]) {
-        await this.client.request(`https://discord.com/api/v8/interactions/${this.id}/${this.token}/callback`, "POST", {
+    reply(content: string | null, responseType: InteractionResponseType = InteractionResponseType.ChannelMessageWithSource, embeds: unknown[] = [], allowedMentions?: string[]) {
+        return this.client.request(`https://discord.com/api/v8/interactions/${this.id}/${this.token}/callback`, "POST", {
             type: responseType,
             data: {
                 tts: false,

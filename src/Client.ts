@@ -1,5 +1,6 @@
 import { CommandManager } from "./CommandManager.ts";
 import { Data } from "./DataType.ts";
+import { GuildMember } from "./GuildMember.ts";
 import { Interaction } from "./Interaction.ts";
 import { GATEWAY_URL, OPCODE } from "./statics.ts";
 
@@ -93,7 +94,7 @@ export class Client {
                                 command = this.commands.cache.get(data.d.data.id)!;
                             }
 
-                            const i = new Interaction(this, command, data.d.id, data.d.token, data.d.guild_id, data.d.channel_id, data.d.type, data.d.data);
+                            const i = new Interaction(this, command, data.d.id, data.d.token, new GuildMember(data.d.member.user.id), data.d.guild_id, data.d.channel_id, data.d.type, data.d.data);
 
                             this.on_iteraction_create.forEach(f => f(i));
                             break;
