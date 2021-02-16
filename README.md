@@ -1,6 +1,6 @@
 # discord-slash
 
-A deno Discord Bot library made for the sole purpose of using Slash Commands.
+A PoC Deno Discord Bot library made for the sole purpose of using Slash Commands.
 
 Made in a few hours. The code is probably a bit messy as I didn't spend a lot of time thinking about the structure, etc.
 
